@@ -11,5 +11,8 @@ MAIN() {
   then
     echo "Welcome, $USERNAME! It looks like this is your first time here."
   else
+    GAMES_PLAYED=$($PSQL "select games_played from users where user_id=$GET_USERNAME")
+    BEST_GAME=$($PSQL "select best_game from users where user_id=$GET_USERNAME")
     echo "Welcome back, $USERNAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
+  fi
 }
