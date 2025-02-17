@@ -10,9 +10,12 @@ MAIN() {
   if [[ -z $GET_USERNAME ]]
   then
     echo "Welcome, $USERNAME! It looks like this is your first time here."
+    INSERT_USERNAME=$($PSQL "insert into users(username) values($USERNAME)")
   else
     GAMES_PLAYED=$($PSQL "select games_played from users where user_id=$GET_USERNAME")
     BEST_GAME=$($PSQL "select best_game from users where user_id=$GET_USERNAME")
     echo "Welcome back, $USERNAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
   fi
+
+  GAME
 }
