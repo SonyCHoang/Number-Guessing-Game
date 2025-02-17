@@ -19,3 +19,31 @@ MAIN() {
 
   GAME
 }
+
+GAME() {
+  SECRET_NUMBER=$((1 + $RANDOM % 1000 ))
+
+  TRIES=0
+  CORRECT=false
+  echo "Guess the secret number between 1 and 1000:"
+  while [[ $CORRECT = false ]]
+  do
+    read GUESS
+    if [[ ! $GUESS =~ ^[0-9]+$ ]]
+    then
+      echo "That is not an integer, guess again:"
+    elif [[ $SECRET_NUMBER = $GUESS ]]
+      then
+        TRIES=$(($TRIES + 1))
+        echo "You guessed it in $TRIES tries. The secret number was $SECRET_NUMBER. Nice job!"
+        CORRECT=true
+    elif [[ $SECRET_NUMBER -gt $GUESS ]]
+      then
+        TRIES=$(($TRIES + 1))
+        echo "It's higher than that, guess again:"
+    else
+      TRIES=$(($TRIES + 1))
+      echo "It's lower than that, guess again:"
+    fi
+  done
+}
